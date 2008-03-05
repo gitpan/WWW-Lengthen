@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use LWP::UserAgent;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 our %KnownServices = (
   '0rz'      => qr{^http://0rz\.tw/.+},

@@ -1,4 +1,5 @@
-package t_live::urllist;
+package #  hide from PAUSE
+  t_live::urllist;
 
 use strict;
 use warnings;

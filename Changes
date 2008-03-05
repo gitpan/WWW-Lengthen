@@ -1,5 +1,8 @@
 Revision history for WWW-Lengthen
 
+0.03 2008/03/05
+  - hide t_live::urllist from PAUSE (it's just for tests)
+
 0.02 2008/03/05
   - added "haojp" support
   - listed supported services in the pod
