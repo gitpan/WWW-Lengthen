@@ -4,10 +4,11 @@ use strict;
 use warnings;
 use LWP::UserAgent;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 our %KnownServices = (
   '0rz'      => qr{^http://0rz\.tw/.+},
+  haojp      => qr{^http://hao\.jp/.+},
   Metamark   => qr{^http://xrl\.us/.+},
   NotLong    => qr{^http://[\w\-]+\.notlong\.com/?$},
   ShortenURL => qr{^http://www\.shortenurl\.com/.+},
@@ -112,7 +113,7 @@ WWW::Lengthen - lengthen 'shortened' urls
 
 =head1 DESCRIPTION
 
-There are a bunch of URL shortening services around the world. They have slightly different APIs to shorten URLs but lengthening part is always the same: follow the shortened URL and see the redirect.
+There are a bunch of URL shortening services around the world. They have slightly different APIs to shorten URLs but the lengthening part is always the same: follow the shortened URL and see the redirect.
 
 This module tries all the known services to find a longer URL. You may say we can do it with WWW::Shorten family but you can't say which services people use to shorten URLs. You can select some specific shortening service for your website to shorten longer URLs automatically, but spammers may post URLs shortened with other shortening services to avoid offensive URLs they post to be disclosed by clever client tools that know which shortening service your site uses.
 
@@ -139,6 +140,47 @@ Several shorten services use special techniques to resolve links, such as multip
 =head2 ua
 
 returns an LWP::UserAgent object used internally.
+
+=head1 SUPPORTED SERVICES
+
+=head2 Natively
+
+=over 4
+
+=item 0rz (http://0rz.tw/)
+=item haojp (http://hao.jp/)
+=item Metamark (http://xrl.us/)
+=item NotLong (http://notlong.com/)
+=item ShortenURL (http://www.shortenurl.com/)
+=item Smallr (http://smallr.com/)
+=item SnipURL (http://snipurl.com/)
+=item TinyURL (http://tinyurl.com/)
+=item urlTea (http://urltea.com/)
+
+=back
+
+=head2 Require WWW::Shorten subclasses
+
+=over 4
+
+=item OneShortLink (http://1sl.net/)
+=item Tinylink (http://tinylink.com/)
+
+=back
+
+=head2 Dead/Down/Too Heavy when I tested
+
+not tested but probably works with WWW::Shorten subclasses.
+
+=over 4
+
+=item BabyURL (http://babyurl.com/)
+=item Linkz (http://lin.kz/)
+=item Shorl (http://shorl.com/)  # was too heavy
+=item TinyClick (http://tinyclick.com/)
+=item V3 (http://www.v3.net/)
+
+=back
 
 =head1 SEE ALSO
 

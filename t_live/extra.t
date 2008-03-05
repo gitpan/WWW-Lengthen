@@ -2,14 +2,9 @@ use strict;
 use warnings;
 use Test::More qw( no_plan );
 use WWW::Lengthen;
+use t_live::urllist;
 
-my $ex   = 'http://example.com/';
-my $ex_t = 'http://example.com/test';
-
-my %tests = (
-  OneShortLink => [ $ex   => 'http://1sl.net/1239' ],
-  Tinylink     => [ $ex_t => 'http://tinylink.com/?nlxzHox18M' ],
-);
+my %tests = t_live::urllist->extra_tests;
 
 my $l = WWW::Lengthen->new;
 

@@ -20,14 +20,14 @@ sub try {
   my ($self, $url) = @_;
 
   my $longer_url;
-  if ( $longer_url = $self->cache->get( $url ) ) {
+  if ( $longer_url = $self->cache->get( "www-lengthen:$url" ) ) {
     return $longer_url;
   }
 
   $longer_url = $self->SUPER::try( $url );
 
   if ( defined $longer_url ) {
-    $self->cache->set( $url => $longer_url );
+    $self->cache->set( "www-lengthen:$url" => $longer_url );
   }
   return $longer_url;
 }

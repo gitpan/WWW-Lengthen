@@ -1,26 +1,22 @@
 use strict;
 use warnings;
 use Test::More qw( no_plan );
-use WWW::Lengthen;
+use WWW::Lengthen::Cached;
+use Cache::Memcached;
 use t_live::urllist;
 
 my %tests = t_live::urllist->basic_tests;
 
-my $l = WWW::Lengthen->new;
+my $l = WWW::Lengthen::Cached->new;
+$l->setup_cached( Cache::Memcached->new );
 foreach my $name ( sort keys %tests ) {
   my ($long, $short) = @{ $tests{$name} };
   my $got = $l->try( $short ) || '';
   ok $got eq $long, "$name: $got";
 }
 
-my $tinyurl_only = WWW::Lengthen->new( 'TinyURL' );
 foreach my $name ( sort keys %tests ) {
   my ($long, $short) = @{ $tests{$name} };
-  my $got = $tinyurl_only->try( $short ) || '';
-  if ( $name eq 'TinyURL' ) {
-    ok $got eq $long, "$name: $got";
-  }
-  else {
-    ok $got ne $long, "$name: $got";
-  }
+  my $got = $l->try( $short ) || '';
+  ok $got eq $long, "$name: $got";
 }
