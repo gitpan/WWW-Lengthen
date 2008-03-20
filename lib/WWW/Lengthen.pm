@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use LWP::UserAgent;
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 our %KnownServices = (
   '0rz'      => qr{^http://0rz\.tw/.+},
@@ -149,14 +149,23 @@ returns an LWP::UserAgent object used internally.
 =over 4
 
 =item 0rz (http://0rz.tw/)
+
 =item haojp (http://hao.jp/)
+
 =item Metamark (http://xrl.us/)
+
 =item NotLong (http://notlong.com/)
+
 =item ShortenURL (http://www.shortenurl.com/)
+
 =item Smallr (http://smallr.com/)
+
 =item SnipURL (http://snipurl.com/)
+
 =item TinyURL (http://tinyurl.com/)
+
 =item urlTea (http://urltea.com/)
+
 =item Snurl (http://snurl.com/)
 
 =back
@@ -166,6 +175,7 @@ returns an LWP::UserAgent object used internally.
 =over 4
 
 =item OneShortLink (http://1sl.net/)
+
 =item Tinylink (http://tinylink.com/)
 
 =back
@@ -177,9 +187,13 @@ not tested but probably works with WWW::Shorten subclasses.
 =over 4
 
 =item BabyURL (http://babyurl.com/)
+
 =item Linkz (http://lin.kz/)
+
 =item Shorl (http://shorl.com/)  # was too heavy
+
 =item TinyClick (http://tinyclick.com/)
+
 =item V3 (http://www.v3.net/)
 
 =back

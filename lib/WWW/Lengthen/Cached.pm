@@ -44,7 +44,7 @@ WWW::Lengthen::Cached
 
     use WWW::Lengthen::Cached;
     use Cache::Memcached;
-    my $lengthener = WWW::Lengthen->new;
+    my $lengthener = WWW::Lengthen::Cached->new;
     my $cached = Cache::Memcached->new(...);
     $lengthener->setup_cached($cached)
 

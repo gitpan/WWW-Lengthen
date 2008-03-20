@@ -1,5 +1,9 @@
 Revision history for WWW-Lengthen
 
+0.05 2008/03/20
+  - fixed pod glitches
+  - no significant code changes
+
 0.04 2008/03/20
   - added "snurl" support
   - bumped up the version requirement of Test::UseAllModules
