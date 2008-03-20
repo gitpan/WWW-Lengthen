@@ -1,5 +1,9 @@
 Revision history for WWW-Lengthen
 
+0.04 2008/03/20
+  - added "snurl" support
+  - bumped up the version requirement of Test::UseAllModules
+
 0.03 2008/03/05
   - hide t_live::urllist from PAUSE (it's just for tests)
 

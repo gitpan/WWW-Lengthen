@@ -17,6 +17,7 @@ sub basic_tests {(
   TinyURL    => [ $ex   => 'http://tinyurl.com/kotu' ],
   urlTea     => [ $ex   => 'http://urltea.com/1y' ],
   haojp      => [ $ex   => 'http://hao.jp/hb' ],
+  snurl      => [ $ex   => 'http://snurl.com/1vv5c' ],
 )}
 
 sub extra_tests {(

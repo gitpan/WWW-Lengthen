@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:                WWW-Lengthen
-version:             0.03
+version:             0.04
 abstract:            lengthen 'shortened' urls
 license:             perl
 author:              
@@ -11,7 +11,7 @@ requires:
     Carp:                          0
     LWP::UserAgent:                0
     Test::More:                    0.47
-    Test::UseAllModules:           0
+    Test::UseAllModules:           0.09
 meta-spec:
     url:     http://module-build.sourceforge.net/META-spec-v1.3.html
     version: 1.3
