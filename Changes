@@ -1,5 +1,9 @@
 Revision history for WWW-Lengthen
 
+0.06 2008/05/22
+  - added icanhaz.com support
+  - live test failed when no extra library found.
+
 0.05 2008/03/20
   - fixed pod glitches
   - no significant code changes

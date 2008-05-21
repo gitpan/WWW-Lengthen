@@ -10,11 +10,13 @@ my $l = WWW::Lengthen->new;
 
 $l->add( %WWW::Lengthen::ExtraServices );
 
-foreach my $name ( sort keys %tests ) {
-  eval "require WWW::Shorten::$name";
-  next if $@;
+SKIP: {
+  foreach my $name ( sort keys %tests ) {
+    eval "require WWW::Shorten::$name";
+    if ($@) { skip "this test requires WWW::Shorten\::$name", 1 };
 
-  my ($long, $short) = @{ $tests{$name} };
-  my $got = $l->try( $short ) || '';
-  ok $got eq $long, "$name: $got";
+    my ($long, $short) = @{ $tests{$name} };
+    my $got = $l->try( $short ) || '';
+    ok $got eq $long, "$name: $got";
+  }
 }

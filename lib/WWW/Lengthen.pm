@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use LWP::UserAgent;
 
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 our %KnownServices = (
   '0rz'      => qr{^http://0rz\.tw/.+},
@@ -17,6 +17,7 @@ our %KnownServices = (
   TinyURL    => qr{^http://tinyurl\.com/.+},
   urlTea     => qr{^http://urltea\.com/.+},
   snurl      => qr{^http://snurl.com/.+},
+  icanhaz    => qr{^http://icanhaz.com/.+},
 );
 
 our %ExtraServices = (
@@ -151,6 +152,8 @@ returns an LWP::UserAgent object used internally.
 =item 0rz (http://0rz.tw/)
 
 =item haojp (http://hao.jp/)
+
+=item I CAN HAZ dot COM (http://icanhaz.com/)
 
 =item Metamark (http://xrl.us/)
 
