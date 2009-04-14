@@ -13,10 +13,12 @@ foreach my $name ( sort keys %tests ) {
   my ($long, $short) = @{ $tests{$name} };
   my $got = $l->try( $short ) || '';
   ok $got eq $long, "$name: $got";
+  sleep 1;
 }
 
 foreach my $name ( sort keys %tests ) {
   my ($long, $short) = @{ $tests{$name} };
   my $got = $l->try( $short ) || '';
   ok $got eq $long, "$name: $got";
+  sleep 1;
 }

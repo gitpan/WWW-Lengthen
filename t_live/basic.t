@@ -11,6 +11,7 @@ foreach my $name ( sort keys %tests ) {
   my ($long, $short) = @{ $tests{$name} };
   my $got = $l->try( $short ) || '';
   ok $got eq $long, "$name: $got";
+  sleep 1;
 }
 
 my $tinyurl_only = WWW::Lengthen->new( 'TinyURL' );
@@ -21,6 +22,7 @@ foreach my $name ( sort keys %tests ) {
     ok $got eq $long, "$name: $got";
   }
   else {
-    ok $got ne $long, "$name: $got";
+    ok $got eq $short, "$name: (ignored)";
   }
+  sleep 1;
 }

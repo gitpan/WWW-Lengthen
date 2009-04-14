@@ -1,5 +1,10 @@
 Revision history for WWW-Lengthen
 
+0.07 2009/04/14
+  - added is.gd, bit.ly, enabled shorl, and disabled icanhaz, urltea
+  - added several services WWW::Shorten supports, and marked them
+    as dead
+
 0.06 2008/05/22
   - added icanhaz.com support
   - live test failed when no extra library found.

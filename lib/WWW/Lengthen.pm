@@ -4,34 +4,43 @@ use strict;
 use warnings;
 use LWP::UserAgent;
 
-our $VERSION = '0.06';
+our $VERSION = '0.07';
 
 our %KnownServices = (
-  '0rz'      => qr{^http://0rz\.tw/.+},
-  haojp      => qr{^http://hao\.jp/.+},
-  Metamark   => qr{^http://xrl\.us/.+},
-  NotLong    => qr{^http://[\w\-]+\.notlong\.com/?$},
-  ShortenURL => qr{^http://www\.shortenurl\.com/.+},
-  Smallr     => qr{^http://smallr\.com/.+},
-  SnipURL    => qr{^http://snipurl\.com/.+},
-  TinyURL    => qr{^http://tinyurl\.com/.+},
-  urlTea     => qr{^http://urltea\.com/.+},
-  snurl      => qr{^http://snurl.com/.+},
-  icanhaz    => qr{^http://icanhaz.com/.+},
+  '0rz'            => qr{^http://0rz\.tw/.+},
+  haojp            => qr{^http://hao\.jp/.+},
+  Metamark         => qr{^http://xrl\.us/.+},
+  NotLong          => qr{^http://[\w\-]+\.notlong\.com/?$},
+  Smallr           => qr{^http://smallr\.com/.+},
+  SnipURL          => qr{^http://snipurl\.com/.+},
+  TinyURL          => qr{^http://tinyurl\.com/.+},
+  snurl            => qr{^http://snurl\.com/.+},
+  bitly            => qr{^http://bit\.ly/.+},
+  isgd             => qr{^http://is\.gd/.+},
 );
 
 our %ExtraServices = (
-  OneShortLink => [ qr{^http://1sl\.net/.+}, 'OneShortLink' ],
-  Tinylink     => [ qr{^http://tinylink\.com/.+}, 'Tinylink' ],
+  OneShortLink     => [ qr{^http://1sl\.net/.+}, 'OneShortLink' ],
+  Tinylink         => [ qr{^http://tinylink\.com/.+}, 'Tinylink' ],
+  Shorl            => [ qr{^http://shorl\.com/.+}, 'Shorl' ],
 );
 
 # or maybe was down/too heavy when I tested
 our %DeadServices = (
-  BabyURL   => qr{^http://babyurl\.com/.+},
-  Linkz     => qr{^http://lin\.kz/?\?.+},
-  Shorl     => [ qr{^http://shorl\.com/.+}, 'Shorl' ], # too heavy
-  TinyClick => qr{^http://tinyclick\.com/?\?.+},
-  V3        => qr{^http://\w+\.v3\.net/},
+  icanhaz          => qr{^http://icanhaz\.com/.+},
+  urlTea           => qr{^http://urltea\.com/.+},
+  BabyURL          => qr{^http://babyurl\.com/.+},
+  Linkz            => qr{^http://lin\.kz/?\?.+},
+  TinyClick        => qr{^http://tinyclick\.com/?\?.+},
+  V3               => qr{^http://\w+\.v3\.net/},
+  ShortenURL       => qr{^http://www\.shortenurl\.com/.+},
+  URLjr            => qr{^http://urljr\.com/.+},
+  qURL             => qr{^http://qurl\.net/.+},
+  SmLnk            => qr{^http://smlnk\.com/.+},
+  ShortLink        => qr{^http://shortlink\.us/.+},
+  EkDk             => qr{^http://add\.redir\.ek\.dk/.+},
+  MakeAShorterLink => qr{^http://tinyurl\.com/.+},
+  LinkToolbot      => qr{^http://link\.toolbot\.com/.+},
 );
 
 sub new {
@@ -153,13 +162,9 @@ returns an LWP::UserAgent object used internally.
 
 =item haojp (http://hao.jp/)
 
-=item I CAN HAZ dot COM (http://icanhaz.com/)
-
 =item Metamark (http://xrl.us/)
 
 =item NotLong (http://notlong.com/)
-
-=item ShortenURL (http://www.shortenurl.com/)
 
 =item Smallr (http://smallr.com/)
 
@@ -167,9 +172,11 @@ returns an LWP::UserAgent object used internally.
 
 =item TinyURL (http://tinyurl.com/)
 
-=item urlTea (http://urltea.com/)
-
 =item Snurl (http://snurl.com/)
+
+=item bit.ly (http://bit.ly/)
+
+=item is.gd (http://is.gd/)
 
 =back
 
@@ -179,7 +186,11 @@ returns an LWP::UserAgent object used internally.
 
 =item OneShortLink (http://1sl.net/)
 
+=item Shorl (http://shorl.com/)
+
 =item Tinylink (http://tinylink.com/)
+
+# Tinylink may not be available now as WWW::Shorten marks this as "dead"
 
 =back
 
@@ -189,15 +200,19 @@ not tested but probably works with WWW::Shorten subclasses.
 
 =over 4
 
+=item I CAN HAZ dot COM (http://icanhaz.com/) (temporarily unavailable?)
+
+=item urlTea (http://urltea.com/) (temporarily unavailable?)
+
 =item BabyURL (http://babyurl.com/)
 
 =item Linkz (http://lin.kz/)
 
-=item Shorl (http://shorl.com/)  # was too heavy
-
 =item TinyClick (http://tinyclick.com/)
 
 =item V3 (http://www.v3.net/)
+
+=item ShortenURL (http://www.shortenurl.com/)
 
 =back
 
