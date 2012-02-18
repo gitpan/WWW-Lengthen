@@ -4,29 +4,38 @@ use strict;
 use warnings;
 use LWP::UserAgent;
 
-our $VERSION = '0.07';
+our $VERSION = '0.08';
 
 our %KnownServices = (
   '0rz'            => qr{^http://0rz\.tw/.+},
-  haojp            => qr{^http://hao\.jp/.+},
   Metamark         => qr{^http://xrl\.us/.+},
-  NotLong          => qr{^http://[\w\-]+\.notlong\.com/?$},
-  Smallr           => qr{^http://smallr\.com/.+},
   SnipURL          => qr{^http://snipurl\.com/.+},
   TinyURL          => qr{^http://tinyurl\.com/.+},
   snurl            => qr{^http://snurl\.com/.+},
   bitly            => qr{^http://bit\.ly/.+},
+  htly             => qr{^http://ht\.ly/.+},
   isgd             => qr{^http://is\.gd/.+},
+  owly             => qr{^http://ow\.ly/.+},
+  urlchen          => qr{^http://urlchen\.de/.+},
+  google           => qr{^http://goo\.gl/.+},
+);
+
+# Can't test, but widely used
+our %PartOfOtherServices = (
+  twitterco        => qr{^http://t\.co/.+},
+  hatena           => qr{^http://htn\.to/.+},
+  jmp              => qr{^http://j\.mp/.+},
+  tumblr           => qr{^http://tmblr\.co/.+},
+  facebook         => qr{^http://fb\.me/.+},
 );
 
 our %ExtraServices = (
   OneShortLink     => [ qr{^http://1sl\.net/.+}, 'OneShortLink' ],
-  Tinylink         => [ qr{^http://tinylink\.com/.+}, 'Tinylink' ],
   Shorl            => [ qr{^http://shorl\.com/.+}, 'Shorl' ],
 );
 
-# or maybe was down/too heavy when I tested
-our %DeadServices = (
+# not only dead but also failed anyhow when I tested
+our %UnsupportedOrDeadServices = (
   icanhaz          => qr{^http://icanhaz\.com/.+},
   urlTea           => qr{^http://urltea\.com/.+},
   BabyURL          => qr{^http://babyurl\.com/.+},
@@ -41,6 +50,14 @@ our %DeadServices = (
   EkDk             => qr{^http://add\.redir\.ek\.dk/.+},
   MakeAShorterLink => qr{^http://tinyurl\.com/.+},
   LinkToolbot      => qr{^http://link\.toolbot\.com/.+},
+  haojp            => qr{^http://hao\.jp/.+},
+  Smallr           => qr{^http://smallr\.com/.+},
+  unu              => qr{^http://u\.nu/.+},
+  Tinylink         => [ qr{^http://tinylink\.com/.+}, 'Tinylink' ],
+  durlme           => qr{^http://durl\.me/.+},
+  NotLong          => qr{^http://[\w\-]+\.notlong\.com/?$},
+  shadyurl         => qr{^http://5z8\.info/.+},
+  miudin           => qr{^http://miud\.in/.+},
 );
 
 sub new {
@@ -49,11 +66,12 @@ sub new {
   my %services;
   if ( @_ ) {
     foreach my $name ( @_ ) {
-      $services{$name} = $KnownServices{$name};
+      $services{$name} = $PartOfOtherServices{$name}
+                      || $KnownServices{$name};
     }
   }
   else {
-    %services = %KnownServices;
+    %services = (%KnownServices, %PartOfOtherServices);
   }
 
   my $ua = LWP::UserAgent->new(
@@ -69,6 +87,20 @@ sub new {
 sub ua { shift->{ua} }
 
 sub try {
+  my ($self, $url) = @_;
+
+  my $new_url;
+  my %seen;
+  my $max_try = 5;
+  while ($max_try--) {
+    $new_url = $self->_try($url);
+    return $new_url if $new_url eq $url or $seen{$new_url}++;
+    $url = $new_url;
+  }
+  return $url;
+}
+
+sub _try {
   my ($self, $url) = @_;
 
   foreach my $name ( keys %{ $self->{services} } ) {
@@ -160,13 +192,7 @@ returns an LWP::UserAgent object used internally.
 
 =item 0rz (http://0rz.tw/)
 
-=item haojp (http://hao.jp/)
-
 =item Metamark (http://xrl.us/)
-
-=item NotLong (http://notlong.com/)
-
-=item Smallr (http://smallr.com/)
 
 =item SnipURL (http://snipurl.com/)
 
@@ -178,6 +204,12 @@ returns an LWP::UserAgent object used internally.
 
 =item is.gd (http://is.gd/)
 
+=item ow.ly/ht.ly (http://ow.ly/)
+
+=item urlchen (http://urlchen.de/)
+
+=item google (http://goo.gl/)
+
 =back
 
 =head2 Require WWW::Shorten subclasses
@@ -187,32 +219,6 @@ returns an LWP::UserAgent object used internally.
 =item OneShortLink (http://1sl.net/)
 
 =item Shorl (http://shorl.com/)
-
-=item Tinylink (http://tinylink.com/)
-
-# Tinylink may not be available now as WWW::Shorten marks this as "dead"
-
-=back
-
-=head2 Dead/Down/Too Heavy when I tested
-
-not tested but probably works with WWW::Shorten subclasses.
-
-=over 4
-
-=item I CAN HAZ dot COM (http://icanhaz.com/) (temporarily unavailable?)
-
-=item urlTea (http://urltea.com/) (temporarily unavailable?)
-
-=item BabyURL (http://babyurl.com/)
-
-=item Linkz (http://lin.kz/)
-
-=item TinyClick (http://tinyclick.com/)
-
-=item V3 (http://www.v3.net/)
-
-=item ShortenURL (http://www.shortenurl.com/)
 
 =back
 
